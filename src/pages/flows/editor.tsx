@@ -84,13 +84,13 @@ const nodeTypes = {
 }
 
 const defaultNodes: Node[] = [
-  { id: "start", type: "start", position: { x: 250, y: 50 }, data: { label: "Inicio" } },
+  { id: "start", type: "start", position: { x: 250, y: 50 }, data: { label: "Start" } },
 ]
 
 export default function FlowEditorPage() {
   const [searchParams] = useSearchParams()
   const flowId = searchParams.get("id")
-  const [flowName, setFlowName] = useState("Novo Fluxo")
+  const [flowName, setFlowName] = useState("New Flow")
   const [nodes, setNodes, onNodesChange] = useNodesState(defaultNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([])
 
@@ -119,9 +119,9 @@ export default function FlowEditorPage() {
   const addNode = (type: string) => {
     const id = `${type}-${Date.now()}`
     const labels: Record<string, string> = {
-      sms: "Enviar SMS",
-      delay: "Aguardar",
-      condition: "Condicao",
+      sms: "Send SMS",
+      delay: "Wait",
+      condition: "Condition",
     }
     const newNode: Node = {
       id,
@@ -134,7 +134,7 @@ export default function FlowEditorPage() {
 
   const handleSave = async () => {
     if (!flowId) {
-      toast.error("ID do fluxo nao encontrado")
+      toast.error("Flow ID not found")
       return
     }
     const { error } = await supabase
@@ -147,15 +147,15 @@ export default function FlowEditorPage() {
       .eq("id", flowId)
 
     if (error) {
-      toast.error("Erro ao salvar")
+      toast.error("Failed to save")
     } else {
-      toast.success("Fluxo salvo!")
+      toast.success("Flow saved!")
     }
   }
 
   return (
     <div className="flex flex-col h-screen">
-      <Header title="Editor de Fluxo" />
+      <Header title="Flow Editor" />
       <div className="flex items-center gap-3 px-4 py-2 border-b bg-card">
         <Input
           value={flowName}
@@ -170,12 +170,12 @@ export default function FlowEditorPage() {
             <Clock className="mr-1 h-3 w-3" /> Delay
           </Button>
           <Button size="sm" variant="outline" onClick={() => addNode("condition")}>
-            <GitBranch className="mr-1 h-3 w-3" /> Condicao
+            <GitBranch className="mr-1 h-3 w-3" /> Condition
           </Button>
         </div>
         <div className="flex-1" />
         <Button size="sm" onClick={handleSave}>
-          <Save className="mr-1 h-3 w-3" /> Salvar
+          <Save className="mr-1 h-3 w-3" /> Save
         </Button>
       </div>
       <div className="flex-1">

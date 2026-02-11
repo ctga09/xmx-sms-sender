@@ -34,7 +34,7 @@ export default function FlowsPage() {
       .from("flow_templates")
       .insert({
         user_id: user!.id,
-        name: "Novo Fluxo",
+        name: "New Flow",
         description: "",
         flow_data: { nodes: [], edges: [] },
       })
@@ -42,9 +42,9 @@ export default function FlowsPage() {
       .single()
 
     if (error) {
-      toast.error("Erro ao criar fluxo")
+      toast.error("Failed to create flow")
     } else if (data) {
-      toast.success("Fluxo criado!")
+      toast.success("Flow created!")
       fetchFlows()
     }
   }
@@ -52,28 +52,28 @@ export default function FlowsPage() {
   const deleteFlow = async (id: string) => {
     await supabase.from("flow_templates").delete().eq("id", id)
     setFlows(flows.filter((f) => f.id !== id))
-    toast.success("Fluxo excluido")
+    toast.success("Flow deleted")
   }
 
   return (
     <div>
-      <Header title="Fluxos" />
+      <Header title="Flows" />
       <div className="p-6">
         <div className="flex justify-between items-center mb-6">
-          <p className="text-muted-foreground">Crie fluxos visuais de automacao de SMS</p>
+          <p className="text-muted-foreground">Create visual SMS automation flows</p>
           <Button onClick={createFlow}>
             <Plus className="mr-2 h-4 w-4" />
-            Novo Fluxo
+            New Flow
           </Button>
         </div>
 
         {loading ? (
-          <p className="text-center text-muted-foreground py-12">Carregando...</p>
+          <p className="text-center text-muted-foreground py-12">Loading...</p>
         ) : flows.length === 0 ? (
           <Card className="py-12">
             <CardContent className="text-center">
               <GitBranch className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <p className="text-muted-foreground">Nenhum fluxo criado</p>
+              <p className="text-muted-foreground">No flows created</p>
             </CardContent>
           </Card>
         ) : (
@@ -84,7 +84,7 @@ export default function FlowsPage() {
                   <div className="flex justify-between items-start">
                     <div>
                       <CardTitle className="text-base">{f.name}</CardTitle>
-                      <CardDescription>{f.description || "Sem descricao"}</CardDescription>
+                      <CardDescription>{f.description || "No description"}</CardDescription>
                     </div>
                     <Button variant="ghost" size="icon" onClick={() => deleteFlow(f.id)}>
                       <Trash2 className="h-4 w-4 text-muted-foreground" />
@@ -94,10 +94,10 @@ export default function FlowsPage() {
                 <CardContent>
                   <div className="flex justify-between items-center">
                     <span className="text-xs text-muted-foreground">
-                      Atualizado: {new Date(f.updated_at).toLocaleDateString("pt-BR")}
+                      Updated: {new Date(f.updated_at).toLocaleDateString("en-US")}
                     </span>
                     <Link to={`/flows/editor?id=${f.id}`}>
-                      <Button size="sm" variant="outline">Editar</Button>
+                      <Button size="sm" variant="outline">Edit</Button>
                     </Link>
                   </div>
                 </CardContent>

@@ -22,13 +22,13 @@ import { useState, useEffect } from "react"
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
-  { label: "Enviar SMS", icon: Send, href: "/sms/send" },
-  { label: "SMS em Massa", icon: MessageSquare, href: "/sms/bulk" },
-  { label: "Campanhas", icon: Megaphone, href: "/campaigns" },
-  { label: "Contatos", icon: Users, href: "/contacts" },
+  { label: "Send SMS", icon: Send, href: "/sms/send" },
+  { label: "Bulk SMS", icon: MessageSquare, href: "/sms/bulk" },
+  { label: "Campaigns", icon: Megaphone, href: "/campaigns" },
+  { label: "Contacts", icon: Users, href: "/contacts" },
   { label: "Logs", icon: FileText, href: "/logs" },
-  { label: "Fluxos", icon: GitBranch, href: "/flows" },
-  { label: "Configuracoes", icon: Settings, href: "/settings" },
+  { label: "Flows", icon: GitBranch, href: "/flows" },
+  { label: "Settings", icon: Settings, href: "/settings" },
 ]
 
 export function Sidebar() {
@@ -57,7 +57,7 @@ export function Sidebar() {
     <div className="flex h-screen w-64 flex-col border-r bg-card">
       <div className="flex items-center gap-2 px-6 py-5">
         <Zap className="h-6 w-6 text-primary" />
-        <span className="text-lg font-bold">XMX SMS</span>
+        <span className="text-lg font-bold">AzaSMS</span>
       </div>
       <Separator />
       <ScrollArea className="flex-1 px-3 py-4">
@@ -83,7 +83,7 @@ export function Sidebar() {
       <div className="p-4 space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground truncate">
-            {profile?.full_name || "Usuario"}
+            {profile?.full_name || "User"}
           </span>
           <Button variant="ghost" size="icon" onClick={() => setDark(!dark)}>
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -91,7 +91,7 @@ export function Sidebar() {
         </div>
         <Button variant="ghost" className="w-full justify-start gap-3 text-muted-foreground" onClick={signOut}>
           <LogOut className="h-4 w-4" />
-          Sair
+          Log out
         </Button>
       </div>
     </div>

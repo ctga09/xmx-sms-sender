@@ -19,16 +19,16 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (password.length < 6) {
-      toast.error("A senha deve ter pelo menos 6 caracteres")
+      toast.error("Password must be at least 6 characters")
       return
     }
     setLoading(true)
     const { error } = await signUp(email, password, fullName)
     setLoading(false)
     if (error) {
-      toast.error("Erro ao criar conta", { description: error.message })
+      toast.error("Failed to create account", { description: error.message })
     } else {
-      toast.success("Conta criada!", { description: "Verifique seu email para confirmar." })
+      toast.success("Account created!", { description: "Check your email to confirm." })
       navigate("/login")
     }
   }
@@ -40,16 +40,16 @@ export default function RegisterPage() {
           <div className="flex justify-center mb-4">
             <Zap className="h-10 w-10 text-primary" />
           </div>
-          <CardTitle className="text-2xl">Criar Conta</CardTitle>
-          <CardDescription>Registre-se para usar o XMX SMS Sender</CardDescription>
+          <CardTitle className="text-2xl">Create Account</CardTitle>
+          <CardDescription>Sign up to use AzaSMS</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Nome completo</Label>
+              <Label htmlFor="name">Full name</Label>
               <Input
                 id="name"
-                placeholder="Seu nome"
+                placeholder="Your name"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 required
@@ -60,18 +60,18 @@ export default function RegisterPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="seu@email.com"
+                placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Minimo 6 caracteres"
+                placeholder="Minimum 6 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -81,12 +81,12 @@ export default function RegisterPage() {
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Criando conta..." : "Criar conta"}
+              {loading ? "Creating account..." : "Create account"}
             </Button>
             <p className="text-sm text-muted-foreground">
-              Ja tem conta?{" "}
+              Already have an account?{" "}
               <Link to="/login" className="text-primary hover:underline">
-                Fazer login
+                Sign in
               </Link>
             </p>
           </CardFooter>

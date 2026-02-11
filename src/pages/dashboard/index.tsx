@@ -56,7 +56,7 @@ export default function DashboardPage() {
         const daySent = logs?.filter(l => l.status !== "failed" && l.status !== "rejected").length || 0
         const dayDelivered = logs?.filter(l => l.status === "delivered").length || 0
         days.push({
-          date: d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }),
+          date: d.toLocaleDateString("en-US", { day: "2-digit", month: "2-digit" }),
           sent: Math.round(daySent / 7),
           delivered: Math.round(dayDelivered / 7),
         })
@@ -68,12 +68,12 @@ export default function DashboardPage() {
   }, [user])
 
   const statCards = [
-    { title: "SMS Enviados", value: stats.totalSent, icon: Send, color: "text-blue-500" },
-    { title: "Entregues", value: stats.totalDelivered, icon: CheckCircle, color: "text-green-500" },
-    { title: "Falhos", value: stats.totalFailed, icon: XCircle, color: "text-red-500" },
-    { title: "Taxa de Entrega", value: `${stats.deliveryRate}%`, icon: TrendingUp, color: "text-yellow-500" },
-    { title: "Campanhas Ativas", value: stats.activeCampaigns, icon: Megaphone, color: "text-purple-500" },
-    { title: "Contatos", value: stats.totalContacts, icon: Users, color: "text-cyan-500" },
+    { title: "SMS Sent", value: stats.totalSent, icon: Send, color: "text-blue-500" },
+    { title: "Delivered", value: stats.totalDelivered, icon: CheckCircle, color: "text-green-500" },
+    { title: "Failed", value: stats.totalFailed, icon: XCircle, color: "text-red-500" },
+    { title: "Delivery Rate", value: `${stats.deliveryRate}%`, icon: TrendingUp, color: "text-yellow-500" },
+    { title: "Active Campaigns", value: stats.activeCampaigns, icon: Megaphone, color: "text-purple-500" },
+    { title: "Contacts", value: stats.totalContacts, icon: Users, color: "text-cyan-500" },
   ]
 
   return (
@@ -97,7 +97,7 @@ export default function DashboardPage() {
         <div className="grid gap-6 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Envios por Dia</CardTitle>
+              <CardTitle>Sends per Day</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -106,8 +106,8 @@ export default function DashboardPage() {
                   <XAxis dataKey="date" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="sent" fill="hsl(var(--primary))" name="Enviados" />
-                  <Bar dataKey="delivered" fill="hsl(142 76% 36%)" name="Entregues" />
+                  <Bar dataKey="sent" fill="hsl(var(--primary))" name="Sent" />
+                  <Bar dataKey="delivered" fill="hsl(142 76% 36%)" name="Delivered" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -115,7 +115,7 @@ export default function DashboardPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Taxa de Entrega</CardTitle>
+              <CardTitle>Delivery Rate</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -124,8 +124,8 @@ export default function DashboardPage() {
                   <XAxis dataKey="date" />
                   <YAxis />
                   <Tooltip />
-                  <Line type="monotone" dataKey="delivered" stroke="hsl(142 76% 36%)" name="Entregues" strokeWidth={2} />
-                  <Line type="monotone" dataKey="sent" stroke="hsl(var(--primary))" name="Enviados" strokeWidth={2} />
+                  <Line type="monotone" dataKey="delivered" stroke="hsl(142 76% 36%)" name="Delivered" strokeWidth={2} />
+                  <Line type="monotone" dataKey="sent" stroke="hsl(var(--primary))" name="Sent" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
             </CardContent>

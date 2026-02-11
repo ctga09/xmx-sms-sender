@@ -1,4 +1,4 @@
--- XMX-SMS-Sender Database Schema
+-- AzaSMS Database Schema
 
 -- Enum types
 create type user_role as enum ('admin', 'user');

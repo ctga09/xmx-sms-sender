@@ -32,14 +32,14 @@ export default function SettingsPage() {
     setLoading(true)
     if (settings.id) {
       const { error } = await supabase.from("provider_settings").update(settings).eq("id", settings.id)
-      if (error) toast.error("Erro ao salvar", { description: error.message })
-      else toast.success("Configuracoes salvas!")
+      if (error) toast.error("Failed to save", { description: error.message })
+      else toast.success("Settings saved!")
     } else {
       const { data, error } = await supabase.from("provider_settings").insert(settings).select().single()
-      if (error) toast.error("Erro ao salvar", { description: error.message })
+      if (error) toast.error("Failed to save", { description: error.message })
       else {
         setSettings(data)
-        toast.success("Configuracoes salvas!")
+        toast.success("Settings saved!")
       }
     }
     setLoading(false)
@@ -47,11 +47,11 @@ export default function SettingsPage() {
 
   const createApiKey = async () => {
     if (!newKeyName) {
-      toast.error("Insira um nome para a chave")
+      toast.error("Enter a name for the key")
       return
     }
     // Generate a random API key
-    const key = `xmx_${crypto.randomUUID().replace(/-/g, "")}`
+    const key = `aza_${crypto.randomUUID().replace(/-/g, "")}`
     const encoder = new TextEncoder()
     const hashBuffer = await crypto.subtle.digest("SHA-256", encoder.encode(key))
     const keyHash = Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, "0")).join("")
@@ -63,20 +63,20 @@ export default function SettingsPage() {
     }).select().single()
 
     if (error) {
-      toast.error("Erro ao criar chave", { description: error.message })
+      toast.error("Failed to create key", { description: error.message })
     } else if (data) {
       setApiKeys([data, ...apiKeys])
       setNewKeyName("")
       // Show the full key once
       await navigator.clipboard.writeText(key)
-      toast.success("Chave criada e copiada!", { description: `${key.slice(0, 20)}... (salve em local seguro)` })
+      toast.success("Key created and copied!", { description: `${key.slice(0, 20)}... (save in a secure place)` })
     }
   }
 
   const revokeApiKey = async (id: string) => {
     await supabase.from("api_keys").update({ is_active: false }).eq("id", id)
     setApiKeys(apiKeys.map(k => k.id === id ? { ...k, is_active: false } : k))
-    toast.success("Chave revogada")
+    toast.success("Key revoked")
   }
 
   const updateField = (field: string, value: string) => {
@@ -87,22 +87,22 @@ export default function SettingsPage() {
 
   return (
     <div>
-      <Header title="Configuracoes" />
+      <Header title="Settings" />
       <div className="p-6">
         <Tabs defaultValue="providers">
           <TabsList>
-            <TabsTrigger value="providers">Provedores SMS</TabsTrigger>
-            <TabsTrigger value="apikeys">Chaves de API</TabsTrigger>
+            <TabsTrigger value="providers">SMS Providers</TabsTrigger>
+            <TabsTrigger value="apikeys">API Keys</TabsTrigger>
           </TabsList>
 
           <TabsContent value="providers" className="space-y-6 mt-6">
             {!isAdmin && (
-              <p className="text-sm text-muted-foreground">Somente administradores podem alterar provedores.</p>
+              <p className="text-sm text-muted-foreground">Only administrators can modify providers.</p>
             )}
 
             <Card>
               <CardHeader>
-                <CardTitle>Provedor Padrao</CardTitle>
+                <CardTitle>Default Provider</CardTitle>
               </CardHeader>
               <CardContent>
                 <Select
@@ -147,7 +147,7 @@ export default function SettingsPage() {
             {[1, 2, 3].map((n) => (
               <Card key={n}>
                 <CardHeader>
-                  <CardTitle>EIMS Conta {n}</CardTitle>
+                  <CardTitle>EIMS Account {n}</CardTitle>
                 </CardHeader>
                 <CardContent className="grid gap-4 md:grid-cols-3">
                   <div className="space-y-2">
@@ -159,7 +159,7 @@ export default function SettingsPage() {
                     <Input type="password" value={(settings as Record<string, string>)?.[`eims_password_${n}`] || ""} onChange={(e) => updateField(`eims_password_${n}`, e.target.value)} disabled={!isAdmin} />
                   </div>
                   <div className="space-y-2">
-                    <Label>Servers (separados por virgula)</Label>
+                    <Label>Servers (comma-separated)</Label>
                     <Input value={(settings as Record<string, string>)?.[`eims_servers_${n}`] || ""} onChange={(e) => updateField(`eims_servers_${n}`, e.target.value)} disabled={!isAdmin} />
                   </div>
                 </CardContent>
@@ -192,7 +192,7 @@ export default function SettingsPage() {
 
             {isAdmin && (
               <Button onClick={saveSettings} disabled={loading}>
-                {loading ? "Salvando..." : "Salvar Configuracoes"}
+                {loading ? "Saving..." : "Save Settings"}
               </Button>
             )}
           </TabsContent>
@@ -200,31 +200,31 @@ export default function SettingsPage() {
           <TabsContent value="apikeys" className="space-y-6 mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Criar Nova Chave</CardTitle>
+                <CardTitle>Create New Key</CardTitle>
               </CardHeader>
               <CardContent className="flex gap-3">
                 <Input
-                  placeholder="Nome da chave (ex: Integracao CRM)"
+                  placeholder="Key name (e.g.: CRM Integration)"
                   value={newKeyName}
                   onChange={(e) => setNewKeyName(e.target.value)}
                   className="max-w-sm"
                 />
                 <Button onClick={createApiKey}>
                   <Plus className="mr-2 h-4 w-4" />
-                  Criar
+                  Create
                 </Button>
               </CardContent>
             </Card>
 
             <Card>
               <CardHeader>
-                <CardTitle>Suas Chaves</CardTitle>
+                <CardTitle>Your Keys</CardTitle>
               </CardHeader>
               <CardContent>
                 {apiKeys.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
                     <Key className="h-8 w-8 mx-auto mb-2" />
-                    <p>Nenhuma chave de API criada</p>
+                    <p>No API keys created</p>
                   </div>
                 ) : (
                   <div className="space-y-3">
@@ -234,17 +234,17 @@ export default function SettingsPage() {
                           <p className="font-medium">{key.name}</p>
                           <p className="text-sm text-muted-foreground font-mono">{key.key_preview}</p>
                           <p className="text-xs text-muted-foreground">
-                            Criada: {new Date(key.created_at).toLocaleDateString("pt-BR")}
-                            {key.last_used_at && ` | Ultimo uso: ${new Date(key.last_used_at).toLocaleDateString("pt-BR")}`}
+                            Created: {new Date(key.created_at).toLocaleDateString("en-US")}
+                            {key.last_used_at && ` | Last used: ${new Date(key.last_used_at).toLocaleDateString("en-US")}`}
                           </p>
                         </div>
                         <div className="flex items-center gap-2">
                           {key.is_active ? (
                             <Button variant="outline" size="sm" onClick={() => revokeApiKey(key.id)}>
-                              <Trash2 className="mr-1 h-3 w-3" /> Revogar
+                              <Trash2 className="mr-1 h-3 w-3" /> Revoke
                             </Button>
                           ) : (
-                            <span className="text-sm text-red-500">Revogada</span>
+                            <span className="text-sm text-red-500">Revoked</span>
                           )}
                         </div>
                       </div>

@@ -39,15 +39,15 @@ export function Header({ title }: HeaderProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={() => navigate("/settings")}>
             <Settings className="mr-2 h-4 w-4" />
-            Configuracoes
+            Settings
           </DropdownMenuItem>
           <DropdownMenuItem onClick={() => navigate("/settings")}>
             <User className="mr-2 h-4 w-4" />
-            Perfil
+            Profile
           </DropdownMenuItem>
           <DropdownMenuItem onClick={signOut}>
             <LogOut className="mr-2 h-4 w-4" />
-            Sair
+            Log out
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

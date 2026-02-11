@@ -56,23 +56,23 @@ export default function CampaignDetailPage() {
     })
 
     if (error) {
-      toast.error("Erro ao iniciar campanha", { description: error.message })
+      toast.error("Failed to start campaign", { description: error.message })
     } else {
-      toast.success("Campanha iniciada!")
+      toast.success("Campaign started!")
     }
   }
 
   const pauseCampaign = async () => {
     if (!campaign) return
     await supabase.from("campaigns").update({ status: "paused" }).eq("id", campaign.id)
-    toast.info("Campanha pausada")
+    toast.info("Campaign paused")
   }
 
   if (loading || !campaign) {
     return (
       <div>
-        <Header title="Campanha" />
-        <div className="p-6 text-center text-muted-foreground">Carregando...</div>
+        <Header title="Campaign" />
+        <div className="p-6 text-center text-muted-foreground">Loading...</div>
       </div>
     )
   }
@@ -87,22 +87,22 @@ export default function CampaignDetailPage() {
       <div className="p-6 space-y-6">
         <div className="flex items-center gap-4">
           <Badge variant="secondary">{campaign.status}</Badge>
-          <span className="text-sm text-muted-foreground">Provedor: {campaign.provider}</span>
+          <span className="text-sm text-muted-foreground">Provider: {campaign.provider}</span>
           {campaign.status === "draft" && (
             <Button size="sm" onClick={startCampaign}>
-              <Play className="mr-1 h-4 w-4" /> Iniciar
+              <Play className="mr-1 h-4 w-4" /> Start
             </Button>
           )}
           {campaign.status === "running" && (
             <Button size="sm" variant="outline" onClick={pauseCampaign}>
-              <Pause className="mr-1 h-4 w-4" /> Pausar
+              <Pause className="mr-1 h-4 w-4" /> Pause
             </Button>
           )}
         </div>
 
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span>Progresso</span>
+            <span>Progress</span>
             <span>{progress}%</span>
           </div>
           <Progress value={progress} />
@@ -119,7 +119,7 @@ export default function CampaignDetailPage() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm flex items-center gap-1"><Send className="h-3 w-3" /> Enviados</CardTitle>
+              <CardTitle className="text-sm flex items-center gap-1"><Send className="h-3 w-3" /> Sent</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-blue-500">{campaign.sent_count}</div>
@@ -127,7 +127,7 @@ export default function CampaignDetailPage() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm flex items-center gap-1"><CheckCircle className="h-3 w-3" /> Entregues</CardTitle>
+              <CardTitle className="text-sm flex items-center gap-1"><CheckCircle className="h-3 w-3" /> Delivered</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-green-500">{campaign.delivered_count}</div>
@@ -135,7 +135,7 @@ export default function CampaignDetailPage() {
           </Card>
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm flex items-center gap-1"><XCircle className="h-3 w-3" /> Falhos</CardTitle>
+              <CardTitle className="text-sm flex items-center gap-1"><XCircle className="h-3 w-3" /> Failed</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-red-500">{campaign.failed_count}</div>
@@ -145,7 +145,7 @@ export default function CampaignDetailPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-sm">Mensagem</CardTitle>
+            <CardTitle className="text-sm">Message</CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-sm whitespace-pre-wrap">{campaign.message}</p>
@@ -154,17 +154,17 @@ export default function CampaignDetailPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Destinatarios</CardTitle>
+            <CardTitle>Recipients</CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Telefone</TableHead>
+                  <TableHead>Phone</TableHead>
                   <TableHead>Status</TableHead>
                   <TableHead>Message ID</TableHead>
-                  <TableHead>Enviado em</TableHead>
-                  <TableHead>Erro</TableHead>
+                  <TableHead>Sent at</TableHead>
+                  <TableHead>Error</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -175,7 +175,7 @@ export default function CampaignDetailPage() {
                       <Badge variant="outline">{r.status}</Badge>
                     </TableCell>
                     <TableCell className="font-mono text-xs">{r.message_id || "-"}</TableCell>
-                    <TableCell>{r.sent_at ? new Date(r.sent_at).toLocaleString("pt-BR") : "-"}</TableCell>
+                    <TableCell>{r.sent_at ? new Date(r.sent_at).toLocaleString("en-US") : "-"}</TableCell>
                     <TableCell className="text-red-500 text-xs">{r.error_message || "-"}</TableCell>
                   </TableRow>
                 ))}

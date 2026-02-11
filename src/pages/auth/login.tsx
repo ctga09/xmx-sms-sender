@@ -21,7 +21,7 @@ export default function LoginPage() {
     const { error } = await signIn(email, password)
     setLoading(false)
     if (error) {
-      toast.error("Erro ao fazer login", { description: error.message })
+      toast.error("Login failed", { description: error.message })
     } else {
       navigate("/dashboard")
     }
@@ -34,8 +34,8 @@ export default function LoginPage() {
           <div className="flex justify-center mb-4">
             <Zap className="h-10 w-10 text-primary" />
           </div>
-          <CardTitle className="text-2xl">XMX SMS Sender</CardTitle>
-          <CardDescription>Entre na sua conta para continuar</CardDescription>
+          <CardTitle className="text-2xl">AzaSMS</CardTitle>
+          <CardDescription>Sign in to your account to continue</CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
@@ -44,18 +44,18 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="seu@email.com"
+                placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Senha</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Sua senha"
+                placeholder="Your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -64,12 +64,12 @@ export default function LoginPage() {
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Entrando..." : "Entrar"}
+              {loading ? "Signing in..." : "Sign in"}
             </Button>
             <p className="text-sm text-muted-foreground">
-              Nao tem conta?{" "}
+              Don't have an account?{" "}
               <Link to="/register" className="text-primary hover:underline">
-                Criar conta
+                Create account
               </Link>
             </p>
           </CardFooter>

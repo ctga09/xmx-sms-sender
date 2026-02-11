@@ -11,14 +11,14 @@ export default function LandingPage() {
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2">
             <Zap className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">XMX SMS Sender</span>
+            <span className="text-xl font-bold">AzaSMS</span>
           </div>
           <div className="flex gap-3">
             <Link to="/login">
               <Button variant="ghost">Login</Button>
             </Link>
             <Link to="/register">
-              <Button>Criar Conta</Button>
+              <Button>Sign Up</Button>
             </Link>
           </div>
         </div>
@@ -27,22 +27,22 @@ export default function LandingPage() {
       {/* Hero */}
       <section className="container mx-auto px-6 py-24 text-center">
         <h1 className="text-5xl font-bold tracking-tight mb-6">
-          Plataforma Inteligente de<br />
-          <span className="text-primary">Marketing SMS</span>
+          Intelligent Platform for<br />
+          <span className="text-primary">SMS Marketing</span>
         </h1>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-          Envie SMS em massa, gerencie campanhas, acompanhe entregas em tempo real
-          e automatize seus fluxos de comunicacao com seus clientes.
+          Send bulk SMS, manage campaigns, track deliveries in real time,
+          and automate your communication flows with your customers.
         </p>
         <div className="flex gap-4 justify-center">
           <Link to="/register">
             <Button size="lg" className="text-lg px-8">
-              Comecar Agora
+              Get Started
             </Button>
           </Link>
           <Link to="/login">
             <Button size="lg" variant="outline" className="text-lg px-8">
-              Fazer Login
+              Sign In
             </Button>
           </Link>
         </div>
@@ -50,38 +50,38 @@ export default function LandingPage() {
 
       {/* Features */}
       <section className="container mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">Recursos Poderosos</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Powerful Features</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[
             {
               icon: Send,
-              title: "Envio de SMS",
-              description: "Envie SMS individual ou em massa para milhares de numeros com suporte a multiplos provedores.",
+              title: "SMS Sending",
+              description: "Send individual or bulk SMS to thousands of numbers with multiple provider support.",
             },
             {
               icon: Megaphone,
-              title: "Campanhas",
-              description: "Crie e gerencie campanhas de marketing com acompanhamento em tempo real de entregas.",
+              title: "Campaigns",
+              description: "Create and manage marketing campaigns with real-time delivery tracking.",
             },
             {
               icon: BarChart3,
               title: "Analytics",
-              description: "Dashboard completo com graficos interativos, taxa de entrega, e metricas detalhadas.",
+              description: "Complete dashboard with interactive charts, delivery rates, and detailed metrics.",
             },
             {
               icon: Users,
-              title: "Gestao de Contatos",
-              description: "Importe contatos via CSV, organize em grupos e gerencie sua base de clientes.",
+              title: "Contact Management",
+              description: "Import contacts via CSV, organize into groups, and manage your customer base.",
             },
             {
               icon: Shield,
-              title: "API Publica",
-              description: "Integre o envio de SMS ao seu sistema com nossa API RESTful e chaves de acesso.",
+              title: "Public API",
+              description: "Integrate SMS sending into your system with our RESTful API and access keys.",
             },
             {
               icon: Globe,
-              title: "Multi-provedor",
-              description: "Suporte a Onbuka, EIMS e SMPP. Alterne entre provedores sem alterar seu codigo.",
+              title: "Multi-Provider",
+              description: "Supports Onbuka, EIMS, and SMPP. Switch between providers without changing your code.",
             },
           ].map((feature) => (
             <Card key={feature.title}>
@@ -101,12 +101,12 @@ export default function LandingPage() {
       <section className="container mx-auto px-6 py-16 text-center">
         <Card className="max-w-2xl mx-auto">
           <CardContent className="py-12">
-            <h2 className="text-3xl font-bold mb-4">Pronto para comecar?</h2>
+            <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
             <p className="text-muted-foreground mb-6">
-              Crie sua conta gratuitamente e comece a enviar SMS agora mesmo.
+              Create your account for free and start sending SMS right now.
             </p>
             <Link to="/register">
-              <Button size="lg">Criar Conta Gratis</Button>
+              <Button size="lg">Create Free Account</Button>
             </Link>
           </CardContent>
         </Card>
@@ -115,7 +115,7 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t">
         <div className="container mx-auto px-6 py-8 text-center text-sm text-muted-foreground">
-          <p>XMX SMS Sender - Plataforma de Marketing SMS</p>
+          <p>AzaSMS - SMS Marketing Platform</p>
         </div>
       </footer>
     </div>

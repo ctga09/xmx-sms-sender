@@ -23,7 +23,7 @@ export default function SendSmsPage() {
 
   const handleSend = async () => {
     if (!phone || !message) {
-      toast.error("Preencha o telefone e a mensagem")
+      toast.error("Please fill in the phone number and message")
       return
     }
 
@@ -39,27 +39,27 @@ export default function SendSmsPage() {
     setLoading(false)
 
     if (error) {
-      toast.error("Erro ao enviar SMS", { description: error.message })
+      toast.error("Failed to send SMS", { description: error.message })
     } else if (data?.success) {
-      toast.success("SMS enviado!", { description: `Message ID: ${data.message_ids?.[0] || "N/A"}` })
+      toast.success("SMS sent!", { description: `Message ID: ${data.message_ids?.[0] || "N/A"}` })
       setPhone("")
       setMessage("")
     } else {
-      toast.error("Falha ao enviar", { description: data?.error || "Erro desconhecido" })
+      toast.error("Failed to send", { description: data?.error || "Unknown error" })
     }
   }
 
   return (
     <div>
-      <Header title="Enviar SMS" />
+      <Header title="Send SMS" />
       <div className="p-6 max-w-2xl">
         <Card>
           <CardHeader>
-            <CardTitle>Envio Individual</CardTitle>
+            <CardTitle>Individual Send</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="phone">Telefone (com codigo do pais)</Label>
+              <Label htmlFor="phone">Phone (with country code)</Label>
               <Input
                 id="phone"
                 placeholder="5511999999999"
@@ -69,10 +69,10 @@ export default function SendSmsPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="sender">Sender ID (opcional)</Label>
+              <Label htmlFor="sender">Sender ID (optional)</Label>
               <Input
                 id="sender"
-                placeholder="Ex: XMX"
+                placeholder="Ex: AzaSMS"
                 value={senderId}
                 onChange={(e) => setSenderId(e.target.value)}
                 maxLength={11}
@@ -80,32 +80,32 @@ export default function SendSmsPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="provider">Provedor</Label>
+              <Label htmlFor="provider">Provider</Label>
               <Select value={provider} onValueChange={(v) => setProvider(v as SmsProvider)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="onbuka">Onbuka</SelectItem>
-                  <SelectItem value="eims_1">EIMS Conta 1</SelectItem>
-                  <SelectItem value="eims_2">EIMS Conta 2</SelectItem>
-                  <SelectItem value="eims_3">EIMS Conta 3</SelectItem>
+                  <SelectItem value="eims_1">EIMS Account 1</SelectItem>
+                  <SelectItem value="eims_2">EIMS Account 2</SelectItem>
+                  <SelectItem value="eims_3">EIMS Account 3</SelectItem>
                   <SelectItem value="smpp">SMPP</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="message">Mensagem</Label>
+              <Label htmlFor="message">Message</Label>
               <Textarea
                 id="message"
-                placeholder="Digite sua mensagem..."
+                placeholder="Type your message..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={5}
               />
               <div className="flex justify-between text-sm text-muted-foreground">
-                <span>{charCount} caracteres</span>
+                <span>{charCount} characters</span>
                 <span>{smsCount} SMS</span>
               </div>
             </div>
@@ -121,7 +121,7 @@ export default function SendSmsPage() {
 
             <Button onClick={handleSend} disabled={loading} className="w-full">
               <Send className="mr-2 h-4 w-4" />
-              {loading ? "Enviando..." : "Enviar SMS"}
+              {loading ? "Sending..." : "Send SMS"}
             </Button>
           </CardContent>
         </Card>

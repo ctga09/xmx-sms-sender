@@ -34,7 +34,7 @@ export default function NewCampaignPage() {
 
   const handleCreate = async () => {
     if (!name || !message || !selectedGroup) {
-      toast.error("Preencha todos os campos obrigatorios")
+      toast.error("Please fill in all required fields")
       return
     }
 
@@ -49,7 +49,7 @@ export default function NewCampaignPage() {
     const contacts = members?.map((m) => m.contacts as { id: string; phone: string }).filter(Boolean) || []
 
     if (contacts.length === 0) {
-      toast.error("O grupo selecionado nao tem contatos")
+      toast.error("The selected group has no contacts")
       setLoading(false)
       return
     }
@@ -70,7 +70,7 @@ export default function NewCampaignPage() {
       .single()
 
     if (error || !campaign) {
-      toast.error("Erro ao criar campanha", { description: error?.message })
+      toast.error("Failed to create campaign", { description: error?.message })
       setLoading(false)
       return
     }
@@ -86,29 +86,29 @@ export default function NewCampaignPage() {
     await supabase.from("campaign_recipients").insert(recipients)
 
     setLoading(false)
-    toast.success("Campanha criada!")
+    toast.success("Campaign created!")
     navigate(`/campaigns/${campaign.id}`)
   }
 
   return (
     <div>
-      <Header title="Nova Campanha" />
+      <Header title="New Campaign" />
       <div className="p-6 max-w-2xl">
         <Card>
           <CardHeader>
-            <CardTitle>Criar Campanha</CardTitle>
+            <CardTitle>Create Campaign</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label>Nome da Campanha</Label>
-              <Input placeholder="Ex: Promocao Black Friday" value={name} onChange={(e) => setName(e.target.value)} />
+              <Label>Campaign Name</Label>
+              <Input placeholder="Ex: Black Friday Promo" value={name} onChange={(e) => setName(e.target.value)} />
             </div>
 
             <div className="space-y-2">
-              <Label>Grupo de Contatos</Label>
+              <Label>Contact Group</Label>
               <Select value={selectedGroup} onValueChange={setSelectedGroup}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione um grupo" />
+                  <SelectValue placeholder="Select a group" />
                 </SelectTrigger>
                 <SelectContent>
                   {groups.map((g) => (
@@ -121,34 +121,34 @@ export default function NewCampaignPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Provedor</Label>
+              <Label>Provider</Label>
               <Select value={provider} onValueChange={(v) => setProvider(v as SmsProvider)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="onbuka">Onbuka</SelectItem>
-                  <SelectItem value="eims_1">EIMS Conta 1</SelectItem>
-                  <SelectItem value="eims_2">EIMS Conta 2</SelectItem>
-                  <SelectItem value="eims_3">EIMS Conta 3</SelectItem>
+                  <SelectItem value="eims_1">EIMS Account 1</SelectItem>
+                  <SelectItem value="eims_2">EIMS Account 2</SelectItem>
+                  <SelectItem value="eims_3">EIMS Account 3</SelectItem>
                   <SelectItem value="smpp">SMPP</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label>Sender ID (opcional)</Label>
-              <Input placeholder="Ex: XMX" value={senderId} onChange={(e) => setSenderId(e.target.value)} maxLength={11} />
+              <Label>Sender ID (optional)</Label>
+              <Input placeholder="Ex: AzaSMS" value={senderId} onChange={(e) => setSenderId(e.target.value)} maxLength={11} />
             </div>
 
             <div className="space-y-2">
-              <Label>Mensagem</Label>
-              <Textarea placeholder="Mensagem da campanha..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} />
-              <p className="text-sm text-muted-foreground">{message.length} caracteres</p>
+              <Label>Message</Label>
+              <Textarea placeholder="Campaign message..." value={message} onChange={(e) => setMessage(e.target.value)} rows={5} />
+              <p className="text-sm text-muted-foreground">{message.length} characters</p>
             </div>
 
             <Button onClick={handleCreate} disabled={loading} className="w-full">
-              {loading ? "Criando..." : "Criar Campanha"}
+              {loading ? "Creating..." : "Create Campaign"}
             </Button>
           </CardContent>
         </Card>

@@ -20,12 +20,12 @@ const statusColors: Record<string, string> = {
 }
 
 const statusLabels: Record<string, string> = {
-  draft: "Rascunho",
-  scheduled: "Agendada",
-  running: "Enviando",
-  paused: "Pausada",
-  completed: "Concluida",
-  failed: "Falhou",
+  draft: "Draft",
+  scheduled: "Scheduled",
+  running: "Sending",
+  paused: "Paused",
+  completed: "Completed",
+  failed: "Failed",
 }
 
 export default function CampaignsPage() {
@@ -48,14 +48,14 @@ export default function CampaignsPage() {
 
   return (
     <div>
-      <Header title="Campanhas" />
+      <Header title="Campaigns" />
       <div className="p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-medium">Suas Campanhas</h2>
+          <h2 className="text-lg font-medium">Your Campaigns</h2>
           <Link to="/campaigns/new">
             <Button>
               <Plus className="mr-2 h-4 w-4" />
-              Nova Campanha
+              New Campaign
             </Button>
           </Link>
         </div>
@@ -65,27 +65,27 @@ export default function CampaignsPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Nome</TableHead>
+                  <TableHead>Name</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Provedor</TableHead>
+                  <TableHead>Provider</TableHead>
                   <TableHead className="text-right">Total</TableHead>
-                  <TableHead className="text-right">Enviados</TableHead>
-                  <TableHead className="text-right">Entregues</TableHead>
-                  <TableHead className="text-right">Falhos</TableHead>
-                  <TableHead>Data</TableHead>
+                  <TableHead className="text-right">Sent</TableHead>
+                  <TableHead className="text-right">Delivered</TableHead>
+                  <TableHead className="text-right">Failed</TableHead>
+                  <TableHead>Date</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {loading ? (
                   <TableRow>
                     <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                      Carregando...
+                      Loading...
                     </TableCell>
                   </TableRow>
                 ) : campaigns.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                      Nenhuma campanha criada
+                      No campaigns created
                     </TableCell>
                   </TableRow>
                 ) : (
@@ -106,7 +106,7 @@ export default function CampaignsPage() {
                       <TableCell className="text-right">{c.sent_count}</TableCell>
                       <TableCell className="text-right">{c.delivered_count}</TableCell>
                       <TableCell className="text-right">{c.failed_count}</TableCell>
-                      <TableCell>{new Date(c.created_at).toLocaleDateString("pt-BR")}</TableCell>
+                      <TableCell>{new Date(c.created_at).toLocaleDateString("en-US")}</TableCell>
                     </TableRow>
                   ))
                 )}

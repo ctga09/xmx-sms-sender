@@ -52,7 +52,7 @@ export default function BulkSmsPage() {
       .filter(Boolean)
 
     if (phoneList.length === 0 || !message) {
-      toast.error("Insira os numeros e a mensagem")
+      toast.error("Enter the numbers and the message")
       return
     }
 
@@ -68,13 +68,13 @@ export default function BulkSmsPage() {
     setLoading(false)
 
     if (error) {
-      toast.error("Erro no envio", { description: error.message })
+      toast.error("Send error", { description: error.message })
     } else if (data?.success) {
-      toast.success(`${data.sent_count} SMS enviados!`)
+      toast.success(`${data.sent_count} SMS sent!`)
       setNumbers("")
       setMessage("")
     } else {
-      toast.error("Falha no envio", { description: data?.error })
+      toast.error("Send failed", { description: data?.error })
     }
   }
 
@@ -85,18 +85,18 @@ export default function BulkSmsPage() {
 
   return (
     <div>
-      <Header title="SMS em Massa" />
+      <Header title="Bulk SMS" />
       <div className="p-6 max-w-2xl">
         <Card>
           <CardHeader>
-            <CardTitle>Envio em Massa</CardTitle>
+            <CardTitle>Bulk Send</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label>Carregar de um Grupo</Label>
+              <Label>Load from a Group</Label>
               <Select value={selectedGroup} onValueChange={loadGroupContacts}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selecione um grupo (opcional)" />
+                  <SelectValue placeholder="Select a group (optional)" />
                 </SelectTrigger>
                 <SelectContent>
                   {groups.map((g) => (
@@ -109,49 +109,49 @@ export default function BulkSmsPage() {
             </div>
 
             <div className="space-y-2">
-              <Label>Numeros (um por linha ou separados por virgula)</Label>
+              <Label>Numbers (one per line or comma-separated)</Label>
               <Textarea
                 placeholder="5511999999999&#10;5521888888888&#10;5531777777777"
                 value={numbers}
                 onChange={(e) => setNumbers(e.target.value)}
                 rows={6}
               />
-              <p className="text-sm text-muted-foreground">{phoneCount} numeros</p>
+              <p className="text-sm text-muted-foreground">{phoneCount} numbers</p>
             </div>
 
             <div className="space-y-2">
-              <Label>Provedor</Label>
+              <Label>Provider</Label>
               <Select value={provider} onValueChange={(v) => setProvider(v as SmsProvider)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="onbuka">Onbuka</SelectItem>
-                  <SelectItem value="eims_1">EIMS Conta 1</SelectItem>
-                  <SelectItem value="eims_2">EIMS Conta 2</SelectItem>
-                  <SelectItem value="eims_3">EIMS Conta 3</SelectItem>
+                  <SelectItem value="eims_1">EIMS Account 1</SelectItem>
+                  <SelectItem value="eims_2">EIMS Account 2</SelectItem>
+                  <SelectItem value="eims_3">EIMS Account 3</SelectItem>
                   <SelectItem value="smpp">SMPP</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label>Mensagem</Label>
+              <Label>Message</Label>
               <Textarea
-                placeholder="Mensagem para todos os destinatarios..."
+                placeholder="Message for all recipients..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={4}
               />
               <div className="flex justify-between text-sm text-muted-foreground">
-                <span>{message.length} caracteres</span>
+                <span>{message.length} characters</span>
                 <span>{message.length <= 160 ? 1 : Math.ceil(message.length / 153)} SMS x {phoneCount} = {(message.length <= 160 ? 1 : Math.ceil(message.length / 153)) * phoneCount} total</span>
               </div>
             </div>
 
             <Button onClick={handleSend} disabled={loading} className="w-full">
               <Send className="mr-2 h-4 w-4" />
-              {loading ? "Enviando..." : `Enviar para ${phoneCount} numeros`}
+              {loading ? "Sending..." : `Send to ${phoneCount} numbers`}
             </Button>
           </CardContent>
         </Card>

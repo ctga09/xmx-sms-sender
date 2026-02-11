@@ -42,7 +42,7 @@ export default function ImportContactsPage() {
 
   const handleImport = async () => {
     if (!nameCol || !phoneCol) {
-      toast.error("Selecione pelo menos as colunas Nome e Telefone")
+      toast.error("Select at least the Name and Phone columns")
       return
     }
 
@@ -60,7 +60,7 @@ export default function ImportContactsPage() {
       }))
 
     if (contacts.length === 0) {
-      toast.error("Nenhum contato valido encontrado")
+      toast.error("No valid contacts found")
       return
     }
 
@@ -72,7 +72,7 @@ export default function ImportContactsPage() {
       const batch = contacts.slice(i, i + 500)
       const { error } = await supabase.from("contacts").insert(batch)
       if (error) {
-        toast.error(`Erro no lote ${i / 500 + 1}`, { description: error.message })
+        toast.error(`Error in batch ${i / 500 + 1}`, { description: error.message })
         setLoading(false)
         return
       }
@@ -80,13 +80,13 @@ export default function ImportContactsPage() {
     }
 
     setLoading(false)
-    toast.success(`${imported} contatos importados!`)
+    toast.success(`${imported} contacts imported!`)
     navigate("/contacts")
   }
 
   return (
     <div>
-      <Header title="Importar Contatos" />
+      <Header title="Import Contacts" />
       <div className="p-6 max-w-4xl">
         <Card>
           <CardHeader>
@@ -106,12 +106,12 @@ export default function ImportContactsPage() {
                   <div className="flex items-center justify-center gap-2">
                     <FileText className="h-6 w-6 text-primary" />
                     <span className="font-medium">{fileName}</span>
-                    <span className="text-muted-foreground">({csvData.length} linhas)</span>
+                    <span className="text-muted-foreground">({csvData.length} rows)</span>
                   </div>
                 ) : (
                   <div className="space-y-2">
                     <Upload className="h-10 w-10 mx-auto text-muted-foreground" />
-                    <p className="text-muted-foreground">Clique para selecionar um arquivo CSV</p>
+                    <p className="text-muted-foreground">Click to select a CSV file</p>
                   </div>
                 )}
               </label>
@@ -121,10 +121,10 @@ export default function ImportContactsPage() {
               <>
                 <div className="grid gap-4 md:grid-cols-3">
                   <div className="space-y-2">
-                    <Label>Coluna Nome *</Label>
+                    <Label>Name Column *</Label>
                     <Select value={nameCol} onValueChange={setNameCol}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
                         {headers.map((h) => (
@@ -134,10 +134,10 @@ export default function ImportContactsPage() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Coluna Telefone *</Label>
+                    <Label>Phone Column *</Label>
                     <Select value={phoneCol} onValueChange={setPhoneCol}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                       <SelectContent>
                         {headers.map((h) => (
@@ -147,13 +147,13 @@ export default function ImportContactsPage() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Coluna Email (opcional)</Label>
+                    <Label>Email Column (optional)</Label>
                     <Select value={emailCol} onValueChange={setEmailCol}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Nenhuma" />
+                        <SelectValue placeholder="None" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="__none__">Nenhuma</SelectItem>
+                        <SelectItem value="__none__">None</SelectItem>
                         {headers.map((h) => (
                           <SelectItem key={h} value={h}>{h}</SelectItem>
                         ))}
@@ -163,7 +163,7 @@ export default function ImportContactsPage() {
                 </div>
 
                 <div>
-                  <p className="text-sm font-medium mb-2">Preview (primeiras 5 linhas)</p>
+                  <p className="text-sm font-medium mb-2">Preview (first 5 rows)</p>
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -185,7 +185,7 @@ export default function ImportContactsPage() {
                 </div>
 
                 <Button onClick={handleImport} disabled={loading} className="w-full">
-                  {loading ? "Importando..." : `Importar ${csvData.length} contatos`}
+                  {loading ? "Importing..." : `Import ${csvData.length} contacts`}
                 </Button>
               </>
             )}
