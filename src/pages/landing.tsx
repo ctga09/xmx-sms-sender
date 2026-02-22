@@ -17,9 +17,6 @@ export default function LandingPage() {
             <Link to="/login">
               <Button variant="ghost">Login</Button>
             </Link>
-            <Link to="/register">
-              <Button>Sign Up</Button>
-            </Link>
           </div>
         </div>
       </header>
@@ -35,14 +32,9 @@ export default function LandingPage() {
           and automate your communication flows with your customers.
         </p>
         <div className="flex gap-4 justify-center">
-          <Link to="/register">
+          <Link to="/login">
             <Button size="lg" className="text-lg px-8">
               Get Started
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button size="lg" variant="outline" className="text-lg px-8">
-              Sign In
             </Button>
           </Link>
         </div>
@@ -105,8 +97,8 @@ export default function LandingPage() {
             <p className="text-muted-foreground mb-6">
               Create your account for free and start sending SMS right now.
             </p>
-            <Link to="/register">
-              <Button size="lg">Create Free Account</Button>
+            <Link to="/login">
+              <Button size="lg">Sign In</Button>
             </Link>
           </CardContent>
         </Card>

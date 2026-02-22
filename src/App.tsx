@@ -4,7 +4,6 @@ import { DashboardLayout } from '@/components/layout/dashboard-layout'
 
 import LandingPage from '@/pages/landing'
 import LoginPage from '@/pages/auth/login'
-import RegisterPage from '@/pages/auth/register'
 import DashboardPage from '@/pages/dashboard/index'
 import SendSmsPage from '@/pages/sms/send'
 import BulkSmsPage from '@/pages/sms/bulk'
@@ -23,7 +22,6 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
 
       <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
         <Route path="/dashboard" element={<DashboardPage />} />

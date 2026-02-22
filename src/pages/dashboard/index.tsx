@@ -52,7 +52,7 @@ export default function DashboardPage() {
       for (let i = 6; i >= 0; i--) {
         const d = new Date()
         d.setDate(d.getDate() - i)
-        const dateStr = d.toISOString().split("T")[0]
+        d.toISOString().split("T")[0]
         const daySent = logs?.filter(l => l.status !== "failed" && l.status !== "rejected").length || 0
         const dayDelivered = logs?.filter(l => l.status === "delivered").length || 0
         days.push({

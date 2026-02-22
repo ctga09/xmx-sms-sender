@@ -46,7 +46,7 @@ export default function NewCampaignPage() {
       .select("contacts(id, phone)")
       .eq("group_id", selectedGroup)
 
-    const contacts = members?.map((m) => m.contacts as { id: string; phone: string }).filter(Boolean) || []
+    const contacts = members?.map((m) => m.contacts as unknown as { id: string; phone: string }).filter(Boolean) || []
 
     if (contacts.length === 0) {
       toast.error("The selected group has no contacts")

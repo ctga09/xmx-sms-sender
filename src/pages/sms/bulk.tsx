@@ -16,7 +16,7 @@ export default function BulkSmsPage() {
   const [numbers, setNumbers] = useState("")
   const [message, setMessage] = useState("")
   const [provider, setProvider] = useState<SmsProvider>("onbuka")
-  const [senderId, setSenderId] = useState("")
+  const [senderId] = useState("")
   const [groups, setGroups] = useState<ContactGroup[]>([])
   const [selectedGroup, setSelectedGroup] = useState("")
   const [loading, setLoading] = useState(false)
@@ -40,7 +40,7 @@ export default function BulkSmsPage() {
       .eq("group_id", groupId)
 
     if (data) {
-      const phones = data.map((d) => (d.contacts as { phone: string })?.phone).filter(Boolean)
+      const phones = data.map((d) => (d.contacts as unknown as { phone: string })?.phone).filter(Boolean)
       setNumbers(phones.join("\n"))
     }
   }
